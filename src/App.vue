@@ -1,31 +1,54 @@
 
 <template>
+<HeaderBar>
   <router-link to="/projects">Projects</router-link>
+</HeaderBar>
+<Background>
+  <div id="app_grid">
   <router-view></router-view>
-  {{data}}
+  </div>
+ <!-- <Markdown :source="data?.allProjects.data[1].content" /> -->
+</Background>
 </template>
 
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Background from '~/components/Background.vue'
 import {useQuery} from 'villus'
+import Markdown from 'vue3-markdown-it';
+import HeaderBar from '~/components/HeaderBar.vue';
 
 const {data} = useQuery({
   query: `{
-    findProjectByID(id: 324226404490149953){
-      content
-      title
+    allThoughts{
+      data{
+        title
+        tags {
+          data {
+            title
+            _id
+          }
+        }
+      }
+    }
+    allProjects {
+      data {
+        title
+        content
+      }
     }
     }`,
 })
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+body {
+  margin: 0;
+  height: 100vh;
 }
+#app_grid{
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
 </style>

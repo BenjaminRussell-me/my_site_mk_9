@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import {createPinia } from 'pinia'
 import {createRouter, createWebHistory} from 'vue-router'
-import {createClient, defaultPlugins, opContext} from 'villus'
+import {createClient, defaultPlugins, opContext, fetch, afterQuery, useResult, operation} from 'villus'
 import App from './App.vue'
 
 import Home from '~/views/Home.vue'
@@ -23,11 +23,34 @@ const router = createRouter( {
 function authPlugin({opContext}) {
     opContext.headers.Authorization = `Bearer ${import.meta.env.VITE_FAUNA_KEY}`
 }
+function localStorageCache({ afterQuery, useResult, operation }) {
+  // avoid caching mutations or subscriptions, also avoid caching queries with `network-only` policy
+  if (operation.type !== 'query' || operation.cachePolicy === 'network-only') {
+    return;
+  }
 
+  // Set the cache result after query is resolved
+  // Using the `operation.key` is very handy here, it is a unique value that identifies this operation
+  // The key is calculated from the query itself and it's variables
+  afterQuery(result => {
+    localStorage.setItem(operation.key, result);
+  });
+
+  // Get cached item
+  const cachedResult = localStorage.getItem(operation.key);
+
+  // if exists in cache, terminate with result
+  if (cachedResult) {
+    // The first argument of `useResult` is the final value of the operation
+    // The second argument is optional, it allows the plugin to terminate the operation
+    // and stop all other plugins from executing, the last plugin must terminate with `true`
+    return useResult(cachedResult);
+  }
+}
 
 const client = createClient({
     url: 'https://graphql.us.fauna.com/graphql',
-    use: [authPlugin, ...defaultPlugins()],
+    use: [authPlugin, localStorageCache, fetch(), ...defaultPlugins()],
 })
 
 createApp(App)
