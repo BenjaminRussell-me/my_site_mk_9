@@ -5,7 +5,7 @@
 </HeaderBar>
 <Background>
   <div id="app_grid">
-  <router-view></router-view>
+  <router-view :data="data"></router-view>
   </div>
  <!-- <Markdown :source="data?.allProjects.data[1].content" /> -->
 </Background>
@@ -44,11 +44,17 @@ const {data} = useQuery({
 body {
   margin: 0;
   height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 #app_grid{
   display: grid;
-  place-items: center;
   height: 100%;
+  .page_section {
+    place-self: center;
+    align-self: center;
+    width: $parent_width;
+  }
 }
 
 </style>
