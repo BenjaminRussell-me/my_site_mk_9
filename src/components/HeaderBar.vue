@@ -13,6 +13,8 @@
         background: $darkColor;
         box-shadow: $shadow;
         display: grid;
+        position: fixed;
+        z-index: 9999;
         .wrapper {
             width: 80%;
             justify-self: center;

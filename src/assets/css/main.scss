@@ -1,6 +1,6 @@
 @import 'colors.module.scss';
 
-$parent_width: 80%;
+$parent_width: clamp(0px, (90% + (10% - 1vw*5)), 1500px);
 $shadow: 0 0 5px 3px black;
 $header_height: 5vh;
 $gap: 1rem;

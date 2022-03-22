@@ -1,10 +1,12 @@
 <template>
 <div id="stage">
    <span id="stage_title">title</span>
-   <main :style="{width: `clamp(300px, 80%, 800px)`}">
+   <main :style="{width: `clamp(200px, 80%, ${width}px)`}">
       <div id="main_grid">
          <div class="line"></div>
-         <div id="main_content"></div>
+         <div id="main_content">
+            <slot></slot>
+         </div>
          <div class="line"></div>
       </div>
    </main>
@@ -15,14 +17,21 @@
 </div>
 </template>
 
+<script setup lang="ts">
+   const props = defineProps({
+      width: Number
+   })
+</script>
+
 <style lang="scss" scoped>
 #stage {
    width: 100%;
-   background: rgba($lightColor, 0.5);
+   background: rgba($lightColor, 0.7);
    box-shadow: $shadow;
    align-self: center;
    justify-self: center;
    min-height: 75vh;
+   backdrop-filter: blur(5px);
    border-radius: $corners;
    display: grid;
    #stage_title {
@@ -42,6 +51,7 @@ main {
    #main_grid {
       display: grid;
       grid-template-columns: auto 1fr auto;
+      gap: $gap;
    }
 }
 .line {
@@ -62,7 +72,7 @@ main {
       filter: blur(3px);
       grid-area: 1/1/1/1;
    border-radius: 0 0 $corners $corners;
-   background: linear-gradient(to right, red, blue);
+   background: linear-gradient(to right, $gradient1, $gradient2, $gradient3, $gradient4);
    width: 100%;
    height: 50%;
    place-self: center;

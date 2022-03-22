@@ -1,9 +1,5 @@
 <template>
-    <section class="page_section" id="home">
-        <stage>
             <h1>home</h1>
-        </stage>
-    </section>
 </template>
 
 <script setup lang="ts">
