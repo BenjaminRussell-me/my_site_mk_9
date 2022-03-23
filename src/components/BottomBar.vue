@@ -1,5 +1,5 @@
 <template>
-<div id="header">
+<div id="bottom">
     <div class="wrapper">
         <slot></slot>
     </div>
@@ -7,13 +7,12 @@
 </template>
 
 <style lang="scss" scoped>
-    #header {
+    #bottom {
         width: 100%;
-        height: $header_height;
-        background: $darkColor;
-        box-shadow: $shadow;
         display: grid;
         position: fixed;
+        bottom: 0px;
+        height: $header_height;
         z-index: 9999;
         .wrapper {
             justify-self: center;
@@ -22,6 +21,13 @@
             width: $parent_width;
             justify-content: space-between;
             flex-wrap: wrap;
+            background: $darkColor;
+            box-shadow: $shadow;
+            height: 100%;
+            width: clamp(300px, 50%, 500px);
+            display: flex;
+            place-content: center;
+            border-radius: $corners;
         }
     }
 </style>
@@ -37,6 +43,12 @@
             font-weight: bold;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        .off{
+            color: rgba($lightColor, 0.5);
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
         }
     }
 </style>

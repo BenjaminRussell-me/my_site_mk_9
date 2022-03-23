@@ -1,6 +1,6 @@
 <template>
 <div id="stage">
-   <span id="stage_title">title</span>
+   <span id="stage_title">{{title}}</span>
    <main :style="{width: `clamp(200px, 80%, ${width}px)`}">
       <div id="main_grid">
          <div class="line"></div>
@@ -19,7 +19,8 @@
 
 <script setup lang="ts">
    const props = defineProps({
-      width: Number
+      width: Number,
+      title: String
    })
 </script>
 
@@ -35,11 +36,17 @@
    border-radius: $corners;
    display: grid;
    #stage_title {
-      transform: rotate(90deg);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
       justify-self: start;
       align-self: start;
+      margin: $gap;
       grid-area: 1/1/1/1;
-   margin: $gap;
+   display: block;
+   font-family: sans-serif;
+   font-size: clamp(0.8rem, 2vw, 2rem);
+   font-weight: bold;
+   box-sizing: border-box;
    }
 }
 main {
@@ -48,10 +55,16 @@ main {
    grid-area: 1/1/1/1;
    transition: 1s ease-in-out;
    justify-self: center;
+   max-height: 68vh;
+   overflow-y: auto;
+   box-shadow: inset 0 -15px 10px -20px black, inset 0 15px 10px -20px black;
    #main_grid {
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: $gap;
+      #main_content {
+         padding: $gap 0 $gap 0;
+      }
    }
 }
 .line {
