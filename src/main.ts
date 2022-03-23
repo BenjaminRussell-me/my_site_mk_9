@@ -8,7 +8,7 @@ import Home from '~/views/Home.vue'
 import Thoughts from '~/views/Thoughts.vue'
 import Projects from '~/views/Projects.vue'
 import Resume from '~/views/Resume.vue'
-
+import Content from '~/views/Content.vue'
 
 const router = createRouter( {
     history: createWebHistory(),
@@ -17,6 +17,7 @@ const router = createRouter( {
         {path: '/projects', name: 'Projects', component: Projects},
         {path: '/thoughts', name: 'Thoughts', component: Thoughts},
         {path: '/resume', name: 'Resume', component: Resume},
+        {path: '/content/:location/:id', name: 'Content', component: Content}
     ]
 })
 

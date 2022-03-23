@@ -5,6 +5,7 @@
     <img />
     <span>BenjaminRussell.me</span>
   </div>
+  <router-link :to="'/Content/' + stage_line_width">content</router-link>
 </HeaderBar>
 <Background :bg="bg" >
   <div id="app_grid">
@@ -49,6 +50,7 @@ const {data} = useQuery({
     allThoughts{
       data{
         title
+        _id
         tags {
           data {
             title
@@ -60,6 +62,7 @@ const {data} = useQuery({
     allProjects {
       data {
         title
+        _id
       }
     }
     }`,
@@ -91,8 +94,12 @@ function stage_set() {
       page_title.value = "Resume"
       break;
     case 'Content':
+      stage_line_width.value = 500;
+      bg.value = ResumeBackground
+      page_title.value = "Resume"
       break;
   }
+  console.log(route.name)
 
 }
 watch(

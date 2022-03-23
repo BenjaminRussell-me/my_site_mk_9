@@ -5,6 +5,8 @@
             v-for="project in data?.allProjects.data"
             :title="project.title"
             :tags="project?.tags?.data"
+            location="project"
+            :id="project._id"
             ></Card>
         </CardHolder>
     </section>
