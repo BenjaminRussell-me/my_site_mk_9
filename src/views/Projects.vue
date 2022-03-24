@@ -7,6 +7,7 @@
             :tags="project?.tags?.data"
             location="project"
             :id="project._id"
+            :img="project.img"
             ></Card>
         </CardHolder>
     </section>

@@ -1,9 +1,9 @@
 <template>
-    <router-link :to="'/content/'+location+'/'+id" class="card" @click="navigate(title)">
-            <img class="card_img" />
+    <router-link :to="'/content/'+location+'/'+id" class="card">
+            <img class="card_img" :src="img" />
         <div class="info">
             <h1 class="title">{{title}}</h1>
-            <div class="tags_holder">
+            <div v-if="tags" class="tags_holder">
                <TagBubble v-for="tag in tags">{{tag.title}}</TagBubble>  
             </div>
         </div>
@@ -14,16 +14,13 @@
 import TagBubble from './TagBubble.vue';
 import {} from 'vue-router'
 const Props = defineProps<{
-    img: String,
+    img?: String,
     title: String,
     id: String,
-    tags: [{title:String}],
+    tags?: [{title:String}],
     location: String,
 }>()
 
-function navigate(title: String){
-    console.log('?')
-}
 </script>
 
 <style lang="scss" scoped>

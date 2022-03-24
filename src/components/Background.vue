@@ -1,9 +1,18 @@
 <template>
 <div id="background_holder">
 <div class="content_holder">
-    <transition name="bg" appear mode="out-in">
-    <component :is="bg"></component>
-    </transition>
+<transition name="bg" appear>
+    <projects-background v-if="bg == 'projects'"></projects-background>
+</transition>
+<transition name="bg" appear>
+    <home-background v-if="bg == 'home'"></home-background>
+</transition>
+<transition name="bg" appear>
+    <resume-background v-if="bg == 'resume'"></resume-background>
+</transition>
+<transition name="bg" appear>
+    <thoughts-background v-if="bg == 'thoughts'"></thoughts-background>
+</transition>
     </div>
 <div class="content_holder">
 <slot></slot>
@@ -12,14 +21,42 @@
 </template>
 
 <script setup lang="ts">
+import {ref, markRaw, watch, shallowRef} from 'vue'
+import { useRoute } from 'vue-router'
 import HomeBackground from '~/components/backgrounds/HomeBackground.vue'
-interface Props {
-    bg: any
-}
-const props = withDefaults(defineProps<Props>(),{
-    bg: HomeBackground
-})
+import ResumeBackground from '~/components/backgrounds/ResumeBackground.vue'
+import ThoughtsBackground from '~/components/backgrounds/ThoughtsBackground.vue'
+import ProjectsBackground from '~/components/backgrounds/ProjectsBackground.vue'
+const route = useRoute();
+let bg = ref('home')
 
+
+function bg_set(){
+  switch(route.name){
+    case 'Home':
+    default:
+      bg.value = 'home' 
+      break;
+    case 'Thoughts':
+      bg.value = 'thoughts'
+      break;
+    case 'Projects':
+      bg.value = 'projects' 
+      break;
+    case 'Resume':
+      bg.value = 'resume'
+      break;
+    case 'Content':
+      bg.value = 'projects'
+      break;
+  }
+}
+watch(
+  () => route.name,
+  async test => {
+    bg_set();
+  }
+)
 </script>
 
 <style lang="scss" scoped>

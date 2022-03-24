@@ -5,14 +5,13 @@
     <img />
     <span>BenjaminRussell.me</span>
   </div>
-  <router-link :to="'/Content/' + stage_line_width">content</router-link>
 </HeaderBar>
-<Background :bg="bg" >
+<Background>
   <div id="app_grid">
     <section class="page_section">
     <Stage :width="stage_line_width" :title="page_title"> 
   <router-view :data="data" v-slot="{Component}">
-    <transition name="fade" appear mode="out-in">
+    <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
@@ -34,10 +33,6 @@
 <script setup lang="ts">
 import Background from '~/components/Background.vue'
 import Stage from '~/components/Stage.vue'
-import HomeBackground from './components/backgrounds/HomeBackground.vue';
-import ProjectsBackground from './components/backgrounds/ProjectsBackground.vue';
-import ThoughtsBackground from './components/backgrounds/ThoughtsBackground.vue';
-import ResumeBackground from './components/backgrounds/ResumeBackground.vue'; 
 import BottomBar from '~/components/BottomBar.vue'
 import {useQuery} from 'villus'
 import Markdown from 'vue3-markdown-it';
@@ -47,10 +42,11 @@ import {useRoute} from 'vue-router'
 
 const {data} = useQuery({
   query: `{
-    allThoughts{
+    allThoughts(_size: 3){
       data{
         title
         _id
+        img
         tags {
           data {
             title
@@ -58,48 +54,46 @@ const {data} = useQuery({
           }
         }
       }
+      before
+      after
     }
     allProjects {
       data {
         title
+        img
         _id
       }
+      before
+      after
     }
     }`,
 })
 let page_title = ref("")
 let stage_line_width = ref(0);
 const route = useRoute();
-let bg = ref('HomeBackground')
 function stage_set() {
   switch(route.name){
     case 'Home':
       stage_line_width.value = 800;
-      bg.value = HomeBackground
       page_title.value = "Home"
       break;
     case 'Thoughts':
       stage_line_width.value = 890;
-      bg.value = ThoughtsBackground
       page_title.value = "Thoughts"
       break;
     case 'Projects':
       stage_line_width.value = 890;
-      bg.value = ProjectsBackground
       page_title.value = "Projects"
       break;
     case 'Resume':
       stage_line_width.value = 700;
-      bg.value = ResumeBackground
       page_title.value = "Resume"
       break;
     case 'Content':
       stage_line_width.value = 500;
-      bg.value = ResumeBackground
       page_title.value = "Resume"
       break;
   }
-  console.log(route.name)
 
 }
 watch(

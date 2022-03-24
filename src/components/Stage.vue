@@ -10,6 +10,7 @@
          <div class="line"></div>
       </div>
    </main>
+          <Padg></Padg>
    <div id="color_bar">
       <div id="color"></div>
       <div id="white"></div>
@@ -18,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import Padg from './Padg.vue';
    const props = defineProps({
       width: Number,
       title: String
@@ -62,8 +64,11 @@ main {
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: $gap;
+      grid-area: 1/1/1/1;
       #main_content {
          padding: $gap 0 $gap 0;
+         display: grid;
+         grid-area: 1/2/1/2;
       }
    }
 }
