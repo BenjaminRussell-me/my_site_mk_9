@@ -52,6 +52,7 @@ function localStorageCache({ afterQuery, useResult, operation }) {
 const client = createClient({
     url: 'https://graphql.us.fauna.com/graphql',
     use: [authPlugin, localStorageCache, fetch(), ...defaultPlugins()],
+   // use: [authPlugin, ...defaultPlugins()],
 })
 
 createApp(App)

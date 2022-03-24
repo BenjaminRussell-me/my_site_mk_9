@@ -9,10 +9,10 @@
 <Background>
   <div id="app_grid">
     <section class="page_section">
-    <Stage :width="stage_line_width" :title="page_title"> 
+    <Stage @forward="padginate(true)" @backward="padginate(false)" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
   <router-view :data="data" v-slot="{Component}">
     <transition name="fade" mode="out-in">
-      <component :is="Component" />
+      <component :is="Component" :key="$route.fullPath"/>
     </transition>
   </router-view>
   </Stage>
@@ -37,12 +37,20 @@ import BottomBar from '~/components/BottomBar.vue'
 import {useQuery} from 'villus'
 import Markdown from 'vue3-markdown-it';
 import HeaderBar from '~/components/HeaderBar.vue';
-import {watch, ref} from 'vue'
-import {useRoute} from 'vue-router'
+import {watch, ref, computed} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
-const {data} = useQuery({
-  query: `{
-    allThoughts(_size: 3){
+const route = useRoute();
+const router = useRouter();
+function test() {
+  alert('hi')
+}
+
+let thoughts_cursor = ref(null);
+let thoughts_size = ref(3);
+const get_main_query = computed(() =>{
+  return `{
+    allThoughts(_size: ${thoughts_size.value}, _cursor:${thoughts_cursor.value}){
       data{
         title
         _id
@@ -63,35 +71,47 @@ const {data} = useQuery({
         img
         _id
       }
-      before
-      after
     }
-    }`,
+    }`
+}) 
+
+
+let {data, execute} = useQuery({
+  query: get_main_query
 })
+
+
+let show_padg = ref(false);
 let page_title = ref("")
-let stage_line_width = ref(0);
-const route = useRoute();
+let stage_line_width = ref(800);
 function stage_set() {
   switch(route.name){
     case 'Home':
       stage_line_width.value = 800;
       page_title.value = "Home"
+      show_padg.value = false;
       break;
     case 'Thoughts':
       stage_line_width.value = 890;
       page_title.value = "Thoughts"
+      show_padg.value = true;
+      thoughts_size.value = 3;
       break;
     case 'Projects':
       stage_line_width.value = 890;
       page_title.value = "Projects"
+      show_padg.value = false;
       break;
     case 'Resume':
       stage_line_width.value = 700;
       page_title.value = "Resume"
+      show_padg.value = false;
       break;
     case 'Content':
       stage_line_width.value = 500;
       page_title.value = "Resume"
+      show_padg.value = true;
+      thoughts_size.value = 99;
       break;
   }
 
@@ -102,6 +122,53 @@ watch(
     stage_set();
   }
 )
+
+function padginate(forward: Boolean){
+  if(route.name == 'Thoughts'){
+  if(forward && data.value.allThoughts.after != null){
+    thoughts_cursor.value = `"${data.value.allThoughts.after}"`;
+  }else if (!forward && data.value.allThoughts.before != null){
+    thoughts_cursor.value = `"${data.value.allThoughts.before}"`;
+  }
+  }
+
+ // this is scuffed as hell
+ // look away lest you lose brain cells 
+
+  if(route.name == 'Content'){
+    if(route.params.location == 'thought'){
+      const arr = [...data.value.allThoughts.data];
+      const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
+      const index = arr.findIndex(current_id)
+
+      if(forward && index < arr.length - 1){
+        const next_id = data.value.allThoughts.data[index + 1]._id
+        router.push({path: `/content/thought/${next_id}`})
+      }
+      if(!forward && index != 0){
+        const next_id = data.value.allThoughts.data[index - 1]._id
+        router.push({path: `/content/thought/${next_id}`})
+      }
+
+    }
+    if(route.params.location == "project"){
+      const arr = [...data.value.allProjects.data];
+      const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
+      const index = arr.findIndex(current_id)
+
+      if(forward && index < arr.length - 1){
+        const next_id = data.value.allProjects.data[index + 1]._id
+        router.push({path: `/content/project/${next_id}`})
+      }
+      if(!forward && index != 0){
+        const next_id = data.value.allProjects.data[index - 1]._id
+        router.push({path: `/content/project/${next_id}`})
+      }
+
+    }
+
+  }
+}
 </script>
 
 <style lang="scss">

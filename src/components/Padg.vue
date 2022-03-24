@@ -1,6 +1,7 @@
 <template>
 <div id="padg">
-    NEXT
+    <button @click="$emit('backward')">backward</button>
+    <button @click="$emit('forward')">forward</button>
 </div>
 </template>
 

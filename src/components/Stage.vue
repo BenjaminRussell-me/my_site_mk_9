@@ -10,7 +10,9 @@
          <div class="line"></div>
       </div>
    </main>
-          <Padg></Padg>
+    <transition name="fade" mode="out-in">
+          <Padg v-if="showPadg" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
+   </transition>
    <div id="color_bar">
       <div id="color"></div>
       <div id="white"></div>
@@ -22,7 +24,8 @@
 import Padg from './Padg.vue';
    const props = defineProps({
       width: Number,
-      title: String
+      title: String,
+      showPadg: Boolean,
    })
 </script>
 

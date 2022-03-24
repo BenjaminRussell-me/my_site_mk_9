@@ -19,6 +19,8 @@ switch(router.params.location){
         display = ThoughtContent
         break;
 }
+
+
 </script>
 
 <style lang="scss" scoped>

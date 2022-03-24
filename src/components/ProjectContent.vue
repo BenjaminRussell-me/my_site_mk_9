@@ -23,5 +23,4 @@ const {data} = useQuery({
     }`,
 })
 
-
 </script>
