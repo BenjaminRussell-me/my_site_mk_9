@@ -1,16 +1,15 @@
 <template>
-<div class="background" id="resume_background">
-    <div class="square"></div>
-</div>
+        <Particles
+                id="tsparticles"
+                :particlesInit="particlesInit"
+                :particlesLoaded="particlesLoaded"
+                :options="options"
+        />
 </template>
 
+<script setup lang="ts">
+import options from "~/assets/backgrounds/resume.json"
+console.log(options)
+</script>
 <style lang="scss" scoped>
-#resume_background {
-    color: green;
-    .square {
-        aspect-ratio: 1/1;
-        width: 200px;
-        background: green;
-    }
-}
 </style>

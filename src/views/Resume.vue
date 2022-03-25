@@ -1,7 +1,7 @@
 <template>
     <section id="resume">
         <div id="resume_print">prant</div>
-        <div id="resume_content">
+        <div v-if="$route.name == 'Resume'" id="resume_content">
             <div id="resume_header">
                 <div id="header_content">
                     <h1>{{res?.name}}</h1>
@@ -56,6 +56,8 @@ let res = computed(()=> {
     display: grid;
     grid-template-rows: auto 1fr;
     position: relative;
+    width: 100%;
+    overflow: auto;
     #resume_print{
         position: fixed;
         justify-self: center;
@@ -65,7 +67,7 @@ let res = computed(()=> {
     justify-self: center;
     width: 100%;
     aspect-ratio: 8.5/11;
-    max-width: 8.5in;
+    width: 8.5in;
     margin-top: $gap*2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr ;

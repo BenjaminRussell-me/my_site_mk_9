@@ -1,18 +1,10 @@
 <template>
 <div id="background_holder">
 <div class="content_holder">
-<transition name="bg" appear>
     <projects-background v-if="bg == 'projects'"></projects-background>
-</transition>
-<transition name="bg" appear>
     <home-background v-if="bg == 'home'"></home-background>
-</transition>
-<transition name="bg" appear>
     <resume-background v-if="bg == 'resume'"></resume-background>
-</transition>
-<transition name="bg" appear>
     <thoughts-background v-if="bg == 'thoughts'"></thoughts-background>
-</transition>
     </div>
 <div class="content_holder">
 <slot></slot>

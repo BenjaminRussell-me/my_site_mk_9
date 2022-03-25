@@ -1,16 +1,15 @@
 <template>
-<div class="background" id="projects_background">
-    <div class="square"></div>
-</div>
+        <Particles
+                id="tsparticles"
+                :particlesInit="particlesInit"
+                :particlesLoaded="particlesLoaded"
+                :options="options"
+        />
 </template>
 
+<script setup lang="ts">
+import options from "~/assets/backgrounds/projects.json"
+console.log(options)
+</script>
 <style lang="scss" scoped>
-#projects_background {
-    color: red;
-    .square {
-        aspect-ratio: 1/1;
-        width: 200px;
-        background: blue;
-    }
-}
 </style>

@@ -112,7 +112,7 @@ let stage_line_width = ref(800);
 function stage_set() {
   switch(route.name){
     case 'Home':
-      stage_line_width.value = 800;
+      stage_line_width.value = 700;
       page_title.value = "Home"
       show_padg.value = false;
       break;
@@ -216,7 +216,7 @@ body {
 
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+  transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   animation-delay: 1s;
