@@ -72,6 +72,31 @@ const get_main_query = computed(() =>{
         _id
       }
     }
+    findResumeByID(id:327121152132513861){
+      name
+      About{
+        discription
+        content
+      }
+      img
+      job
+      contact{
+        email
+        website
+      }
+      experience{
+        discription
+        content
+      }
+      skills{
+        discription
+        content
+      }
+      Education{
+        discription
+        content
+      }
+      }
     }`
 }) 
 
@@ -92,18 +117,18 @@ function stage_set() {
       show_padg.value = false;
       break;
     case 'Thoughts':
-      stage_line_width.value = 890;
+      stage_line_width.value = 800;
       page_title.value = "Thoughts"
       show_padg.value = true;
       thoughts_size.value = 3;
       break;
     case 'Projects':
-      stage_line_width.value = 890;
+      stage_line_width.value = 800;
       page_title.value = "Projects"
       show_padg.value = false;
       break;
     case 'Resume':
-      stage_line_width.value = 700;
+      stage_line_width.value = 900;
       page_title.value = "Resume"
       show_padg.value = false;
       break;

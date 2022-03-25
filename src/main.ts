@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import {createPinia } from 'pinia'
 import {createRouter, createWebHistory} from 'vue-router'
 import {createClient, defaultPlugins, opContext, fetch, afterQuery, useResult, operation} from 'villus'
+import Particles from "particles.vue3"
 import App from './App.vue'
 
 import Home from '~/views/Home.vue'
@@ -59,4 +60,5 @@ createApp(App)
 .use(createPinia())
 .use(router)
 .use(client)
+.use(Particles)
 .mount('#app')
