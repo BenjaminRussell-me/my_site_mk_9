@@ -7,9 +7,10 @@
   </div>
 </HeaderBar>
 <Background>
+  <suspense>
   <div id="app_grid">
     <section class="page_section">
-    <Stage @forward="padginate(true)" @backward="padginate(false)" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
+    <Stage @forward="padginate(true)" @backward="padginate(false)" :length="length" :position="position" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
   <router-view :data="data" v-slot="{Component}">
     <transition name="fade" mode="out-in">
       <component :is="Component" :key="$route.fullPath"/>
@@ -18,7 +19,7 @@
   </Stage>
   </section>
   </div>
- <!-- <Markdown :source="data?.allProjects.data[1].content" /> -->
+ </suspense>
 </Background>
 <BottomBar>
   <div id="links">
@@ -47,7 +48,7 @@ function test() {
 }
 
 let thoughts_cursor = ref(null);
-let thoughts_size = ref(3);
+let thoughts_size = ref(4);
 const get_main_query = computed(() =>{
   return `{
     allThoughts(_size: ${thoughts_size.value}, _cursor:${thoughts_cursor.value}){
@@ -97,6 +98,11 @@ const get_main_query = computed(() =>{
         content
       }
       }
+      thoughts_length: allThoughts(_size: 100){
+      data{
+        title
+      }
+    }
     }`
 }) 
 
@@ -106,10 +112,24 @@ let {data, execute} = useQuery({
 })
 
 
+const thoughts_pages = computed(() => {
+  return Math.ceil(data?.value?.thoughts_length?.data?.length / 3)
+})
+const thoughts_ammount = computed(() => {
+  if(data?.value?.thoughts_length?.data?.length){
+    return data?.value?.thoughts_length?.data?.length 
+  }
+})
+
+let position = ref(0);
+let length = ref(0);
 let show_padg = ref(false);
 let page_title = ref("")
 let stage_line_width = ref(800);
+
 function stage_set() {
+  position.value = 1;
+  length.value = 1;
   switch(route.name){
     case 'Home':
       stage_line_width.value = 750;
@@ -117,10 +137,9 @@ function stage_set() {
       show_padg.value = false;
       break;
     case 'Thoughts':
-      stage_line_width.value = 800;
+      stage_line_width.value = 1200;
       page_title.value = "Thoughts"
-      show_padg.value = true;
-      thoughts_size.value = 3;
+      show_padg.value = false;
       break;
     case 'Projects':
       stage_line_width.value = 800;
@@ -136,7 +155,6 @@ function stage_set() {
       stage_line_width.value = 500;
       page_title.value = "Resume"
       show_padg.value = true;
-      thoughts_size.value = 99;
       break;
   }
 
@@ -148,52 +166,63 @@ watch(
   }
 )
 
-function padginate(forward: Boolean){
-  if(route.name == 'Thoughts'){
-  if(forward && data.value.allThoughts.after != null){
-    thoughts_cursor.value = `"${data.value.allThoughts.after}"`;
-  }else if (!forward && data.value.allThoughts.before != null){
-    thoughts_cursor.value = `"${data.value.allThoughts.before}"`;
-  }
-  }
+// function padginate(forward: Boolean){
+//   if(route.name == 'Thoughts'){
+//   if(forward && data.value.allThoughts.after != null){
+//     thoughts_cursor.value = `"${data.value.allThoughts.after}"`;
+//   }else if (!forward && data.value.allThoughts.before != null){
+//     thoughts_cursor.value = `"${data.value.allThoughts.before}"`;
+//   }
+//   }
 
  // this is scuffed as hell
  // look away lest you lose brain cells 
 
-  if(route.name == 'Content'){
-    if(route.params.location == 'thought'){
-      const arr = [...data.value.allThoughts.data];
-      const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
-      const index = arr.findIndex(current_id)
+//   if(route.name == 'Content'){
+//     if(route.params.location == 'thought'){
+//       set_cont_padg()
+//       const arr = [...data?.value?.allThoughts.data];
+//       const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
+//       const index = arr.findIndex(current_id)
 
-      if(forward && index < arr.length - 1){
-        const next_id = data.value.allThoughts.data[index + 1]._id
-        router.push({path: `/content/thought/${next_id}`})
-      }
-      if(!forward && index != 0){
-        const next_id = data.value.allThoughts.data[index - 1]._id
-        router.push({path: `/content/thought/${next_id}`})
-      }
+//       if(forward && index < arr.length - 1){
+//         const next_id = data.value.allThoughts.data[index + 1]._id
+//         router.push({path: `/content/thought/${next_id}`})
+//       }
+//       if(!forward && index != 0){
+//         const next_id = data.value.allThoughts.data[index - 1]._id
+//         router.push({path: `/content/thought/${next_id}`})
+//       }
 
-    }
-    if(route.params.location == "project"){
-      const arr = [...data.value.allProjects.data];
-      const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
-      const index = arr.findIndex(current_id)
+//     }
+//     if(route.params.location == "project"){
+//       const arr = [...data?.value?.allProjects.data];
+//       const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
+//       const index = arr.findIndex(current_id)
 
-      if(forward && index < arr.length - 1){
-        const next_id = data.value.allProjects.data[index + 1]._id
-        router.push({path: `/content/project/${next_id}`})
-      }
-      if(!forward && index != 0){
-        const next_id = data.value.allProjects.data[index - 1]._id
-        router.push({path: `/content/project/${next_id}`})
-      }
+//       if(forward && index < arr.length - 1){
+//         const next_id = data.value.allProjects.data[index + 1]._id
+//         router.push({path: `/content/project/${next_id}`})
+//       }
+//       if(!forward && index != 0){
+//         const next_id = data.value.allProjects.data[index - 1]._id
+//         router.push({path: `/content/project/${next_id}`})
+//       }
 
-    }
+//     }
 
-  }
-}
+//   }
+// }
+
+// function set_cont_padg() {
+//   if(route.params.location == "thought"){
+//       const arr = [...data.value.allThoughts.data];
+//       const current_id = (element) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
+//       const index = arr.findIndex(current_id)
+//       length.value = thoughts_ammount
+//       position.value = index + 1    
+//   }
+// }
 </script>
 
 <style lang="scss">

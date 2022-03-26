@@ -11,7 +11,7 @@
       </div>
    </main>
     <transition name="fade" mode="out-in">
-          <Padg v-if="showPadg" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
+          <Padg v-if="showPadg" :position="position" :length="length" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
    </transition>
    <div id="reflection"></div>
    <div id="color_bar">
@@ -23,11 +23,13 @@
 
 <script setup lang="ts">
 import Padg from './Padg.vue';
-   const props = defineProps({
+   const props = defineProps<{
       width: Number,
       title: String,
       showPadg: Boolean,
-   })
+      length: Number,
+      position: Number,
+   }>()
 </script>
 
 <style lang="scss" scoped>
