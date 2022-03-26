@@ -55,7 +55,7 @@ watch(
 #background_holder{
     height: 100vh;
     display: grid;
-    background: radial-gradient( darken($darkColor, 5%), $darkColor);
+    background: radial-gradient( darken($darkColor, 10%), $darkColor);
     z-index: -1;
     .content_holder {
         grid-area: 1/1/1/1;

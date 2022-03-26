@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ibm/plex": "^6.0.0",
     "graphql": "^16.3.0",
     "i": "^0.3.7",
     "npm": "^8.5.4",

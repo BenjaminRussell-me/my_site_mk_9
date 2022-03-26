@@ -13,6 +13,7 @@
     <transition name="fade" mode="out-in">
           <Padg v-if="showPadg" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
    </transition>
+   <div id="reflection"></div>
    <div id="color_bar">
       <div id="color"></div>
       <div id="white"></div>
@@ -32,12 +33,12 @@ import Padg from './Padg.vue';
 <style lang="scss" scoped>
 #stage {
    width: 100%;
-   background: rgba($lightColor, 0.7);
+   background: linear-gradient(to right, rgba($lightColor, .5),rgba($lightColor, .7),rgba($lightColor, .5));
    box-shadow: $shadow;
    align-self: center;
    justify-self: center;
    min-height: 75vh;
-   backdrop-filter: blur(5px);
+   backdrop-filter: blur(6px);
    border-radius: $corners;
    display: grid;
    #stage_title {
@@ -49,7 +50,7 @@ import Padg from './Padg.vue';
       grid-area: 1/1/1/1;
    display: block;
    font-family: sans-serif;
-   font-size: clamp(0.8rem, 2vw, 2rem);
+   font-size: clamp(0.8rem, 3.5vw, 3.5rem);
    font-weight: bold;
    box-sizing: border-box;
    }
@@ -79,6 +80,16 @@ main {
    width: 2px;
    background: $darkColor;
    height: 100%;
+}
+#reflection{
+   width: 100%;
+   grid-area: 1/1/1/1;
+   align-self: end;
+  height: 25px; 
+   filter: blur(8px);
+   mix-blend-mode: lighten;
+   background: linear-gradient(to right, $gradient1, $gradient2, $gradient3, $gradient4);
+   opacity: 0.5;
 }
 #color_bar {
    width: 100%;

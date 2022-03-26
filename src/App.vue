@@ -3,7 +3,7 @@
 <HeaderBar>
   <div id="me">
     <img />
-    <span>BenjaminRussell.me</span>
+    <span id="logo">BenjaminRussell.me</span>
   </div>
 </HeaderBar>
 <Background>
@@ -112,7 +112,7 @@ let stage_line_width = ref(800);
 function stage_set() {
   switch(route.name){
     case 'Home':
-      stage_line_width.value = 700;
+      stage_line_width.value = 750;
       page_title.value = "Home"
       show_padg.value = false;
       break;
@@ -197,6 +197,14 @@ function padginate(forward: Boolean){
 </script>
 
 <style lang="scss">
+#logo{
+  font-weight: 900;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  background: linear-gradient(to right, $gradient1, $gradient2, $gradient3, $gradient4);
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 body {
   margin: 0;
   height: 100vh;
@@ -216,7 +224,7 @@ body {
 
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
+  transition: opacity .4s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   animation-delay: 1s;
