@@ -5,7 +5,7 @@
             <div id="words">
                 <div id="words_wrapper">
                 <h1>Welcome!</h1>
-                <h2>Links: Links Here</h2>
+                <!--<h2>Links: Links Here</h2>-->
                 </div>
             </div>
             <div id="me_arrow">

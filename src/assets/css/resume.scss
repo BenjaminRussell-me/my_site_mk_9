@@ -1,0 +1,69 @@
+    #resume_print{
+        position: fixed;
+        justify-self: center;
+        align-self: start;
+    }
+    #resume_content {
+    justify-self: center;
+    width: 100%;
+    aspect-ratio: 8.5/11;
+    width: 8.5in;
+    margin-top: $gap*2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    #resume_header {
+        background: $darkColor;
+        grid-area: 1/5/1/1;
+        display: grid;
+        padding:$gap;
+        box-sizing: border-box;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: $gap;
+        color: $lightColor;
+        #header_content{
+            box-sizing: border-box;
+            grid-area: 1/4/1/1;
+        }
+        a {
+            color: $gradient1;
+        }
+        #resume_img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            place-self: center;
+            object-fit: cover;
+        }
+    }
+    #resume_main {
+        grid-area: 2/1/5/5;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        padding: $gap;
+        gap: $gap;
+        background: white;
+        grid-template-rows: 2fr auto 1fr;
+        display: grid;
+        box-sizing: border-box;
+        #resume_experiance{
+            grid-area: 1/4/1/1;
+        box-sizing: border-box;
+        }
+        #resume_side_bar{
+            background: $darkColor;
+            color: $lightColor;
+            padding: 10px;
+            grid-area: 1/4/4/4;
+        box-sizing: border-box;
+        }
+        .resume_line{
+            width: 100%;
+            height: 3px;
+            background: $darkColor;
+            grid-column: span 3;
+        }
+        #resume_about {
+            grid-area: 3/1/3/4;
+        box-sizing: border-box;
+        }
+    }
+    }

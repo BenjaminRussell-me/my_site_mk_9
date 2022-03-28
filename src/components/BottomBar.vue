@@ -38,9 +38,9 @@
         a {
             color: $lightColor;
             text-decoration: none;
-            background: linear-gradient(to right, $gradient1, $gradient2, $gradient3, $gradient4);
             background-attachment: fixed;
             font-weight: bold;
+            background: linear-gradient(to right, $gradient1, $gradient2, $gradient3, $gradient4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }

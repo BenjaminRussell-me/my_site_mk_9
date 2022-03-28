@@ -10,9 +10,11 @@
          <div class="line"></div>
       </div>
    </main>
+   <!--
     <transition name="fade" mode="out-in">
-          <Padg v-if="showPadg" :position="position" :length="length" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
+         < <Padg v-if="showPadg" :position="position" :length="length" @forward="$emit('forward')" @backward="$emit('backward')"></Padg>
    </transition>
+   -->
    <div id="reflection"></div>
    <div id="color_bar">
       <div id="color"></div>

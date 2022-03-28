@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 import {createPinia } from 'pinia'
 import {createRouter, createWebHistory} from 'vue-router'
-import {createClient, defaultPlugins, opContext, fetch, afterQuery, useResult, operation} from 'villus'
-import Particles from "particles.vue3"
+import {createClient, defaultPlugins,  fetch,} from 'villus'
+import Particles from 'particles.vue3'
+import print from 'vue3-print-nb'
 import App from './App.vue'
 
 import Home from '~/views/Home.vue'
@@ -22,10 +23,10 @@ const router = createRouter( {
     ]
 })
 
-function authPlugin({opContext}) {
+function authPlugin({opContext}: any) {
     opContext.headers.Authorization = `Bearer ${import.meta.env.VITE_FAUNA_KEY}`
 }
-function localStorageCache({ afterQuery, useResult, operation }) {
+function localStorageCache({ afterQuery, useResult, operation }: any) {
   // avoid caching mutations or subscriptions, also avoid caching queries with `network-only` policy
   if (operation.type !== 'query' || operation.cachePolicy === 'network-only') {
     return;
@@ -34,7 +35,7 @@ function localStorageCache({ afterQuery, useResult, operation }) {
   // Set the cache result after query is resolved
   // Using the `operation.key` is very handy here, it is a unique value that identifies this operation
   // The key is calculated from the query itself and it's variables
-  afterQuery(result => {
+  afterQuery((result: string) => {
     localStorage.setItem(operation.key, result);
   });
 
@@ -60,5 +61,6 @@ createApp(App)
 .use(createPinia())
 .use(router)
 .use(client)
+.use(print)
 .use(Particles)
 .mount('#app')

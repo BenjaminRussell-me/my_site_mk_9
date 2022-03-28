@@ -10,7 +10,7 @@
   <suspense>
   <div id="app_grid">
     <section class="page_section">
-    <Stage @forward="padginate(true)" @backward="padginate(false)" :length="length" :position="position" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
+    <Stage :length="length" :position="position" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
   <router-view :data="data" v-slot="{Component}">
     <transition name="fade" mode="out-in">
       <component :is="Component" :key="$route.fullPath"/>
@@ -36,7 +36,6 @@ import Background from '~/components/Background.vue'
 import Stage from '~/components/Stage.vue'
 import BottomBar from '~/components/BottomBar.vue'
 import {useQuery} from 'villus'
-import Markdown from 'vue3-markdown-it';
 import HeaderBar from '~/components/HeaderBar.vue';
 import {watch, ref, computed} from 'vue'
 import {useRoute, useRouter} from 'vue-router'

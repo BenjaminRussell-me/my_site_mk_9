@@ -2,6 +2,7 @@
 <div>
     <div v-for="item in data">
         <h1>{{item.title}}</h1>
+        <img :src="item.img"/>
         <Markdown :source="item.content"></Markdown>
     </div>
 </div>
@@ -19,8 +20,15 @@ const {data} = useQuery({
       findProjectByID(id: ${route.params.id}){
               title
               content
+              img
       }
     }`,
 })
 
 </script>
+
+<style lang="scss" scoped>
+    img{
+        width: 100%;
+    }
+</style>

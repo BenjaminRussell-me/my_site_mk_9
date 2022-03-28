@@ -1,82 +1,91 @@
 <template>
+<!--
 <div id="padg">
-    <div id="padg_flex">
+    <div  v-if="data" id="padg_flex">
         <button class="arrow" @click="$emit('backward')"><span></span><span></span></button>
         <span id="counter">{{p}}/{{l}}</span>
         <button class="arrow" @click="$emit('forward')"><span/> <span/></button>
     </div>
 </div>
+-->
 </template>
 
 <script setup lang="ts">
-import {computed, watch,ref} from 'vue'
-import {useRoute} from 'vue-router'
-import { useQuery } from 'villus';
+// import {computed, watch,ref} from 'vue'
+// import {useRoute} from 'vue-router'
+// import { useQuery } from 'villus';
 
-const route = useRoute();
+// const route = useRoute();
 
-let p = ref(1);
-let l = ref(1);
+// let p = ref(1);
+// let l = ref(1);
 
-const query = computed(() =>{
-  return `{
-      thoughts_length: allThoughts(_size: 4){
-      data{
-        title
-        _id
-      }
-    }
-      projects_length: allProjects(_size: 3){
-      data{
-        title
-        _id
-      }
-    }
-    }`
-}) 
+// const query = computed(() =>{
+//   return `{
+//       thoughts_length: allThoughts(_size: 4){
+//       data{
+//         title
+//         _id
+//       }
+//     }
+//       projects_length: allProjects(_size: 3){
+//       data{
+//         title
+//         _id
+//       }
+//     }
+//     }`
+// }) 
 
-let {data} = useQuery({
-  query: query
-})
+// let {data, isFetching, isDone} = useQuery({
+//   query: query
+// })
 
-const thoughts_arr = computed(() => {
-    return data?.value?.thoughts_length?.data
-})
-const projects_arr = computed(() => {
-    return data?.value?.projects_length?.data
-})
-
-function page_location(arr:[any], id:String){
-       const current_id = (element: String) => {if(Object.values(element).indexOf(route.params.id) > -1){return true}}
-       const index = arr.findIndex(id)
-}
-
-
-const Props = defineProps<{
-    length: Number,
-    position: Number,
-}>()
+// const thoughts_arr = computed(() => {
+//       return data?.value?.thoughts_length.data
+// })
+// const projects_arr = computed(() => {
+//     return data?.value?.projects_length?.data
+// })
+// // NO CLUE WHAT I"M DOING
+// function page_location(arr, id:String){
+//        const index = arr.findIndex(id);
+//        return index
+// }
 
 
-function on_page() {
-    switch(route.params.location){
-        case "thought":
-            l.value = thoughts_arr.value.lenght
-            break;
-        case "project":
-            l.value = projects_arr.value.lenght
-            break;
-    }
-}
+// const Props = defineProps<{
+//     length: Number,
+//     position: Number,
+// }>()
 
 
+// function on_page() {
+//     switch(route.params.location){
+//         case "thought":
+            
+//             console.log(thoughts_arr)
+//             l.value = thoughts_arr
+//             break;
+//         case "project":
+//             l.value = projects_arr
+//             break;
+//     }
+// }
+
+// if(data){
+// on_page();
+// }
 
 
-watch(
-  () => route.name,
-  async test => {
-  }
-)
+// watch(
+//   () => route.name,
+//   async test => {
+//       if(data){
+//       on_page()
+//       }
+//   }
+// )
 </script>
 
 <style lang="scss" scoped>

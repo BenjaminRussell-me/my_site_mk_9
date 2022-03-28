@@ -2,6 +2,7 @@
 <div>
     <div id="thought_content" v-for="item in data">
         <h1>{{item.title}}</h1>
+        <img :src="item.img">
         <Markdown :source="item.content"></Markdown>
     </div>
 </div>
@@ -19,6 +20,7 @@ const {data} = useQuery({
       findThoughtByID(id: ${route.params.id}){
               title
               content
+              img
       }
     }`,
 })
