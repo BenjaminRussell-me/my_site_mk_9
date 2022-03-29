@@ -1,12 +1,12 @@
 <template>
 <div id="background_holder">
-<div class="content_holder">
+<div id="bg" class="content_holder">
     <projects-background v-if="bg == 'projects'"></projects-background>
     <home-background v-if="bg == 'home'"></home-background>
     <resume-background v-if="bg == 'resume'"></resume-background>
     <thoughts-background v-if="bg == 'thoughts'"></thoughts-background>
     </div>
-<div class="content_holder">
+<div  id="everything" class="content_holder">
 <slot></slot>
 </div>
 </div>
@@ -56,13 +56,19 @@ watch(
     height: 100vh;
     display: grid;
     background: radial-gradient( darken($darkColor, 10%), $darkColor);
-    z-index: -1;
+    position: relative;
     .content_holder {
         grid-area: 1/1/1/1;
     .background {
         width: 100%;
         height: 100%;
     }
+    }
+    #bg {
+      z-index: 1;
+    }
+    #everything {
+      z-index:  100;
     }
 }
 .bg-enter-active, .bg-leave-active {
