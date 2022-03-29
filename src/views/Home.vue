@@ -95,6 +95,7 @@ const res = computed(()=>{
             grid-area: 1/1/1/1;
             display: grid;
             place-items: center;
+            box-sizing: border-box;
             .shadow{
             grid-area: 1/1/1/1;
                 width: clamp(210px, 20vw, 310px); 
@@ -107,6 +108,7 @@ const res = computed(()=>{
                 box-sizing: border-box;
                 grid-area: 1/1/1/1;
                 width: clamp(200px, 20vw, 300px); 
+                height: clamp(200px, 20vw, 300px); 
                 clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
             }
 
