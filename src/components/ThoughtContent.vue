@@ -3,7 +3,7 @@
     <div id="thought_content" v-for="item in data">
         <h1>{{item.title}}</h1>
         <img :src="item.img">
-        <Markdown :source="item.content"></Markdown>
+        <Markdown :source="item.content" :highlight="highlight"></Markdown>
     </div>
 </div>
 </template>
@@ -12,8 +12,13 @@
 import {useQuery} from 'villus';
 import {useRoute} from 'vue-router';
 import Markdown from 'vue3-markdown-it';
+import highlight from 'highlight.js/lib/core'
+import 'highlight.js/styles/monokai.css';
 const route = useRoute();
 
+const plugins = [
+  highlight
+]
 
 const {data} = useQuery({
   query: `{
