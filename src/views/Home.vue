@@ -11,7 +11,7 @@
             <div id="me_arrow">
             <div id="me">
             <div class="shadow"></div>
-            <img :src="res?.img">
+            <img :src="res?.img" alt="profile of me">
             </div>
             <img id="point" src="../assets/imgs/arrow.svg">
             </div>

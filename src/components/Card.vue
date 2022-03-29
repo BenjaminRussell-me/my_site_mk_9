@@ -1,6 +1,6 @@
 <template>
     <router-link :to="'/content/'+location+'/'+id" class="card">
-            <img class="card_img" :src="img" />
+            <img class="card_img" :src="img" alt="flavor pic"/>
         <div class="info">
             <h1 class="title">{{title}}</h1>
             <div v-if="tags" class="tags_holder">

@@ -9,7 +9,7 @@
                     <p>E-mail: <a :href="'mailto:'+res?.contact.email">{{res?.contact.email}}</a></p>
                     <p>Portfolio: <a :href="res?.contact.website">{{res?.contact.website}}</a></p>
                 </div>
-                <img id="resume_img" :src="res?.img"/>
+                <img id="resume_img" :src="res?.img" alt="picture of me"/>
             </div>
             <div id="resume_main">
                 <div id="resume_experiance">
