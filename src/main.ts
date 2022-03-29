@@ -11,6 +11,7 @@ import Thoughts from '~/views/Thoughts.vue'
 import Projects from '~/views/Projects.vue'
 import Resume from '~/views/Resume.vue'
 import ContentParent from '~/views/ContentParent.vue'
+import {createGtm} from '@gtm-support/vue-gtm'
 
 const router = createRouter( {
     history: createWebHistory(),
@@ -74,4 +75,7 @@ createApp(App)
 .use(client)
 .use(print)
 .use(Particles)
+.use(createGtm({
+  id: 'GTM-5LB54NR'
+}))
 .mount('#app')
