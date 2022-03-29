@@ -7,7 +7,6 @@
   </div>
 </HeaderBar>
 <Background>
-  <suspense>
   <div id="app_grid">
     <section class="page_section">
     <Stage :length="length" :position="position" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
@@ -19,7 +18,6 @@
   </Stage>
   </section>
   </div>
- </suspense>
 </Background>
 <BottomBar>
   <div id="links">
