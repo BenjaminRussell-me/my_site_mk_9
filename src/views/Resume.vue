@@ -81,6 +81,12 @@ let res = computed(()=> {
         justify-self: center;
         align-self: start;
         z-index: 9999;
+        padding: 0.5rem 2rem;
+        background: $darkColor;
+        color: $lightColor;
+        border: none;
+        box-shadow: $shadow;
+        cursor: pointer;
     }
 }
     #resume_content { 
