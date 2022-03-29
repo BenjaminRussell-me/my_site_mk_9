@@ -1,4 +1,6 @@
 @import 'colors.module.scss';
+$font-prefix: './custom/path/to/font/files';
+@import 'node_modules/@ibm/plex/scss/ibm-plex.scss';
 
 $parent_width: clamp(0px, (90% + (10% - 1vw*5)), 1300px);
 $shadow: 0 0 5px 3px black;
