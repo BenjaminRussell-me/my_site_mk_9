@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import {createPinia } from 'pinia'
 import {createRouter, createWebHistory} from 'vue-router'
-import {createClient, defaultPlugins,  fetch,} from 'villus'
+import {createClient, defaultPlugins,  fetch, definePlugin} from 'villus'
 import Particles from 'particles.vue3'
 import print from 'vue3-print-nb'
 import App from './App.vue'
@@ -49,7 +49,18 @@ function localStorageCache({ afterQuery, useResult, operation }: any) {
     // and stop all other plugins from executing, the last plugin must terminate with `true`
     return useResult(cachedResult);
   }
-}
+}// opContext will be automatically typed
+const myPlugin = definePlugin(({ opContext }) => {
+  opContext.headers.Authorization = 'Bearer <token>';
+});
+
+const myPluginWithConfig = (config: { prefix: string }) => {
+  // opContext will be automatically typed
+  return definePlugin(({ opContext }) => {
+    // Add auth headers with configurable prefix
+    opContext.headers.Authorization = `${config.prefix} <token>`;
+  });
+};
 
 const client = createClient({
     url: 'https://graphql.us.fauna.com/graphql',
