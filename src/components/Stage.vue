@@ -45,6 +45,7 @@ import Padg from './Padg.vue';
    backdrop-filter: blur(6px);
    border-radius: $corners;
    display: grid;
+   z-index: 500;
    #stage_title {
       writing-mode: vertical-rl;
       text-orientation: mixed;
