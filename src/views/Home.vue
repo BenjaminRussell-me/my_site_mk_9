@@ -98,8 +98,8 @@ const res = computed(()=>{
             box-sizing: border-box;
             .shadow{
             grid-area: 1/1/1/1;
-                width: clamp(210px, 20vw, 310px); 
-                height: clamp(200px, 20vw, 300px); 
+                width: clamp(210px, 20vw, 260px); 
+                height: clamp(210px, 20vw, 260px); 
              clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
              background: linear-gradient(to right, $gradient1, $gradient2,$gradient3,$gradient4);
              box-sizing: border-box;
@@ -107,8 +107,8 @@ const res = computed(()=>{
             img{
                 box-sizing: border-box;
                 grid-area: 1/1/1/1;
-                width: clamp(200px, 20vw, 300px); 
-                height: clamp(200px, 20vw, 300px); 
+                width: clamp(200px, 20vw, 250px); 
+                height: clamp(200px, 20vw, 250px); 
                 clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
             }
 
