@@ -9,7 +9,7 @@
 <Background>
   <div id="app_grid">
     <section class="page_section">
-    <Stage :length="length" :position="position" :width="stage_line_width" :title="page_title" :showPadg="show_padg"> 
+    <Stage :width="stage_line_width" :title="page_title"> 
   <router-view :data="data" v-slot="{Component}">
     <transition name="fade" mode="out-in">
       <component :is="Component" :key="$route.fullPath"/>
